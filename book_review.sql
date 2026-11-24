@@ -20,6 +20,9 @@ SET time_zone = "+00:00";
 --
 -- Adatbázis: `book_review`
 --
+CREATE DATABASE IF NOT EXISTS book_review
+  CHARACTER SET utf8mb4 COLLATE utf8mb4_hungarian_ci;
+USE book_review;
 
 -- --------------------------------------------------------
 
