@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Gép: 127.0.0.1
--- Létrehozás ideje: 2026. Nov 24. 11:13
+-- Létrehozás ideje: 2026. Nov 24. 11:25
 -- Kiszolgáló verziója: 10.4.32-MariaDB
 -- PHP verzió: 8.0.30
 
@@ -21,19 +21,13 @@ SET time_zone = "+00:00";
 -- Adatbázis: `book_review`
 --
 
-
-CREATE DATABASE IF NOT EXISTS book_review;
-
-USE book_review;
-
-
 -- --------------------------------------------------------
 
 --
 -- Tábla szerkezet ehhez a táblához `be_ki`
 --
 
-CREATE TABLE IF NOT EXISTS `be_ki` (
+CREATE TABLE `be_ki` (
   `id` int(10) UNSIGNED NOT NULL,
   `user_id` int(10) UNSIGNED NOT NULL,
   `bejelentkezes` timestamp NOT NULL DEFAULT current_timestamp(),
@@ -67,12 +61,13 @@ INSERT INTO `be_ki` (`id`, `user_id`, `bejelentkezes`, `kijelentkezes`) VALUES
 -- Tábla szerkezet ehhez a táblához `books`
 --
 
-CREATE TABLE IF NOT EXISTS `books` (
+CREATE TABLE `books` (
   `id` int(10) UNSIGNED NOT NULL,
   `title` varchar(100) NOT NULL,
   `author` varchar(100) NOT NULL,
   `book_language` varchar(30) NOT NULL,
   `publication_year` smallint(6) NOT NULL,
+  `price` decimal(10,2) NOT NULL DEFAULT 0.00,
   `user_id` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -80,22 +75,22 @@ CREATE TABLE IF NOT EXISTS `books` (
 -- A tábla adatainak kiíratása `books`
 --
 
-INSERT INTO `books` (`id`, `title`, `author`, `book_language`, `publication_year`, `user_id`) VALUES
-(1, 'Egri csillagok', 'Gárdonyi Géza', 'magyar', 1901, 1),
-(2, 'A Pál utcai fiúk', 'Molnár Ferenc', 'magyar', 1906, 1),
-(3, 'Az ember tragédiája', 'Madách Imre', 'magyar', 1861, 2),
-(4, 'Harry Potter and the Philosopher\'s Stone', 'J. K. Rowling', 'angol', 1997, 3),
-(5, 'A Gyűrűk Ura: A Gyűrű Szövetsége', 'J. R. R. Tolkien', 'magyar', 1954, 3),
-(6, '1984', 'George Orwell', 'angol', 1949, 4),
-(7, 'Gyilkosság az Orient expresszen', 'Agatha Christie', 'magyar', 1934, 5),
-(8, 'Dracula', 'Bram Stoker', 'angol', 1897, 5),
-(9, 'Büszkeség és balítélet', 'Jane Austen', 'magyar', 1813, 6),
-(10, 'Bűn és bűnhődés', 'Fjodor Mihajlovics Dosztojevszkij', 'magyar', 1866, 6),
-(11, 'Dűne', 'Frank Herbert', 'magyar', 1965, 7),
-(12, 'A kis herceg', 'Antoine de Saint-Exupéry', 'francia', 1943, 7),
-(13, 'The Adventures of Sherlock Holmes', 'Arthur Conan Doyle', 'angol', 1892, 8),
-(14, 'Az alkimista', 'Paulo Coelho', 'magyar', 1988, 2),
-(15, 'Sapiens: Az emberiség rövid története', 'Yuval Noah Harari', 'magyar', 2011, 4);
+INSERT INTO `books` (`id`, `title`, `author`, `book_language`, `publication_year`, `price`, `user_id`) VALUES
+(1, 'Egri csillagok', 'Gárdonyi Géza', 'magyar', 1901, 3490.00, 1),
+(2, 'A Pál utcai fiúk', 'Molnár Ferenc', 'magyar', 1906, 2490.00, 1),
+(3, 'Az ember tragédiája', 'Madách Imre', 'magyar', 1861, 2290.00, 2),
+(4, 'Harry Potter and the Philosopher\'s Stone', 'J. K. Rowling', 'angol', 1997, 5990.00, 3),
+(5, 'A Gyűrűk Ura: A Gyűrű Szövetsége', 'J. R. R. Tolkien', 'magyar', 1954, 6990.00, 3),
+(6, '1984', 'George Orwell', 'angol', 1949, 3990.00, 4),
+(7, 'Gyilkosság az Orient expresszen', 'Agatha Christie', 'magyar', 1934, 3490.00, 5),
+(8, 'Dracula', 'Bram Stoker', 'angol', 1897, 3290.00, 5),
+(9, 'Büszkeség és balítélet', 'Jane Austen', 'magyar', 1813, 3190.00, 6),
+(10, 'Bűn és bűnhődés', 'Fjodor Mihajlovics Dosztojevszkij', 'magyar', 1866, 3990.00, 6),
+(11, 'Dűne', 'Frank Herbert', 'magyar', 1965, 4990.00, 7),
+(12, 'A kis herceg', 'Antoine de Saint-Exupéry', 'francia', 1943, 2990.00, 7),
+(13, 'The Adventures of Sherlock Holmes', 'Arthur Conan Doyle', 'angol', 1892, 3590.00, 8),
+(14, 'Az alkimista', 'Paulo Coelho', 'magyar', 1988, 3290.00, 2),
+(15, 'Sapiens: Az emberiség rövid története', 'Yuval Noah Harari', 'magyar', 2011, 4990.00, 4);
 
 -- --------------------------------------------------------
 
@@ -164,11 +159,11 @@ INSERT INTO `book_tags` (`book_id`, `tag_id`) VALUES
 -- Tábla szerkezet ehhez a táblához `data_bank`
 --
 
-CREATE TABLE IF NOT EXISTS `data_bank` (
+CREATE TABLE `data_bank` (
   `id` int(10) UNSIGNED NOT NULL,
   `card_last4` char(4) NOT NULL,
   `szamlaszam` varchar(34) NOT NULL,
-  `price` decimal(10,2) NOT NULL,
+  `balance` decimal(12,2) NOT NULL DEFAULT 0.00,
   `user_id` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -178,7 +173,7 @@ CREATE TABLE IF NOT EXISTS `data_bank` (
 -- Tábla szerkezet ehhez a táblához `tags`
 --
 
-CREATE TABLE IF NOT EXISTS `tags` (
+CREATE TABLE `tags` (
   `id` int(10) UNSIGNED NOT NULL,
   `genres` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -255,7 +250,7 @@ INSERT INTO `tags` (`id`, `genres`) VALUES
 -- Tábla szerkezet ehhez a táblához `users`
 --
 
-CREATE TABLE IF NOT EXISTS `users` (
+CREATE TABLE `users` (
   `id` int(10) UNSIGNED NOT NULL,
   `full_name` varchar(100) NOT NULL,
   `email` varchar(100) NOT NULL,
