@@ -21,13 +21,20 @@ SET time_zone = "+00:00";
 -- Adatbázis: `book_review`
 --
 
+DROP DATABASE  book_review;
+
+CREATE DATABASE IF NOT EXISTS book_review;
+
+USE book_review;
+
+
 -- --------------------------------------------------------
 
 --
 -- Tábla szerkezet ehhez a táblához `be_ki`
 --
 
-CREATE TABLE `be_ki` (
+CREATE TABLE IF NOT EXISTS `be_ki` (
   `id` int(10) UNSIGNED NOT NULL,
   `user_id` int(10) UNSIGNED NOT NULL,
   `bejelentkezes` timestamp NOT NULL DEFAULT current_timestamp(),
@@ -61,7 +68,7 @@ INSERT INTO `be_ki` (`id`, `user_id`, `bejelentkezes`, `kijelentkezes`) VALUES
 -- Tábla szerkezet ehhez a táblához `books`
 --
 
-CREATE TABLE `books` (
+CREATE TABLE IF NOT EXISTS `books` (
   `id` int(10) UNSIGNED NOT NULL,
   `title` varchar(100) NOT NULL,
   `author` varchar(100) NOT NULL,
@@ -158,7 +165,7 @@ INSERT INTO `book_tags` (`book_id`, `tag_id`) VALUES
 -- Tábla szerkezet ehhez a táblához `data_bank`
 --
 
-CREATE TABLE `data_bank` (
+CREATE TABLE IF NOT EXISTS `data_bank` (
   `id` int(10) UNSIGNED NOT NULL,
   `card_last4` char(4) NOT NULL,
   `szamlaszam` varchar(34) NOT NULL,
@@ -172,7 +179,7 @@ CREATE TABLE `data_bank` (
 -- Tábla szerkezet ehhez a táblához `tags`
 --
 
-CREATE TABLE `tags` (
+CREATE TABLE IF NOT EXISTS `tags` (
   `id` int(10) UNSIGNED NOT NULL,
   `genres` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -249,7 +256,7 @@ INSERT INTO `tags` (`id`, `genres`) VALUES
 -- Tábla szerkezet ehhez a táblához `users`
 --
 
-CREATE TABLE `users` (
+CREATE TABLE IF NOT EXISTS `users` (
   `id` int(10) UNSIGNED NOT NULL,
   `full_name` varchar(100) NOT NULL,
   `email` varchar(100) NOT NULL,
