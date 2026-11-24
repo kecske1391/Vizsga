@@ -1,7 +1,7 @@
 # Vizsga
 Vizsgaremekes repó
 
-Készült egy codespace a CODE menüpont alatt, igy nem baszódunk meg és tudunk online fejleszeteni.
+Készült egy codespace a CODE menüpont alatt, igy el tudjuk kerülni a konfliktusokat és tudunk online fejleszeteni.
 
 Miután a codespacebe irtunk utána kell commitelni a parancssorok keresztül fenn >Git: commit, ezek után megjelenik a commit menü és irni kell egy messeget az első sorba
 
