@@ -21,7 +21,6 @@ SET time_zone = "+00:00";
 -- Adatbázis: `book_review`
 --
 
-DROP DATABASE  book_review;
 
 CREATE DATABASE IF NOT EXISTS book_review;
 
