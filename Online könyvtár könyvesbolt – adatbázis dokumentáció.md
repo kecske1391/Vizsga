@@ -18,7 +18,7 @@ Itt vannak az oldal felhasználói. Minden felhasználóról eltároljuk a telje
 
 ### books – a könyvek
 
-Itt vannak a könyvek. Egy könyvnél eltároljuk a címét, a szerzőjét, a nyelvét és a megjelenés évét. Azt is tudjuk, hogy melyik felhasználó töltötte fel.
+Itt vannak a könyvek. Egy könyvnél eltároljuk a címét, a szerzőjét, a nyelvét, a megjelenés évét és az árát (forintban). Azt is tudjuk, hogy melyik felhasználó töltötte fel.
 
 ### tags – a műfajok
 
@@ -30,7 +30,7 @@ Ez a „összekötő” tábla. Azért van rá szükség, mert egy könyvnek tö
 
 ### data\_bank – banki adatok
 
-Ez a tábla a felhasználók banki jellegű adatait tárolná. Egyelőre **üres**, nem töltöttük fel adatokkal. Fontos: teljes kártyaszámot nem tárolunk, csak az utolsó 4 számjegyet.
+Ez a tábla a felhasználók banki jellegű adatait tárolná. Egyelőre **üres**, nem töltöttük fel adatokkal. Fontos: teljes kártyaszámot nem tárolunk, csak az utolsó 4 számjegyet. Itt van a felhasználó számlaszáma és az egyenlege is. Az egyenleg alapból 0 Ft-tal indul, és ebből lehet majd levonni a könyvek árát.
 
 ### be\_ki – be- és kijelentkezések
 
@@ -52,7 +52,7 @@ Mindenhol be van állítva, hogy ha törlünk egy felhasználót (vagy egy köny
 Hogy ki lehessen próbálni az adatbázist, feltöltöttük példa adatokkal:
 
 - **8 felhasználó:** gyakori magyar nevekkel. Az e-mail címek az example.com címet használják, a telefonszámok kitaláltak, így nem tartoznak valódi emberekhez.
-- **15 valódi könyv:** például Egri csillagok, 1984, Dracula, Dűne, A kis herceg. A szerzők, a nyelvek és a megjelenési évek valósak.
+- **15 valódi könyv:** például Egri csillagok, 1984, Dracula, Dűne, A kis herceg. A szerzők, a nyelvek és a megjelenési évek valósak. Az árak viszont kitaláltak, egy átlagos magyar könyvesbolt árait közelítik.
 - **Műfaj-kapcsolatok:** minden könyvhöz 2-3 műfaj tartozik.
 - **15 be- és kijelentkezés:** néhány felhasználó éppen be van jelentkezve.
 
@@ -67,6 +67,8 @@ Az eredeti kódban volt néhány hiba, ezeket kijavítottuk:
 - **Több műfaj egy könyvhöz:** az eredetiben egy könyvnek csak egy műfaja lehetett volna. A book\_tags tábla ezt megoldja.
 - **Megjelenési év:** utólag hozzáadtuk a books táblához. SMALLINT típust használtunk, mert a YEAR típus csak 1901-től működik, a Dracula pedig 1897-es.
 
+* **Ár és egyenleg:** a data\_bank táblában eredetileg egy price (ár) oszlop volt, de az ár a könyvhöz tartozik, nem a banki adatokhoz. Ezért a könyvek kaptak egy price oszlopot, a data\_bank-ban pedig balance (egyenleg) lett.
+
 ## 6. Biztonság
 
 Teljes bankkártyaszámot soha ne tároljunk a saját adatbázisunkban. Ez törvényi és biztonsági kockázat is. Ha az oldalon majd tényleges fizetés lesz, azt érdemes egy megbízható fizetési szolgáltatóra bízni (például Stripe). Jelszavakat is csak titkosítva (hash-elve) szabad tárolni, de ez a mostani adatbázisban még nincs benne.
@@ -74,7 +76,7 @@ Teljes bankkártyaszámot soha ne tároljunk a saját adatbázisunkban. Ez törv
 ## 7. Mi hiányzik még? (továbbfejlesztési ötletek)
 
 - **Értékelések és vélemények:** az oldal neve book\_review, de még nincs külön tábla, ahol a felhasználók értékelhetnék a könyveket.
-- **Vásárlások:** egy purchases vagy orders tábla, ahol látszik, ki mit vásárolt és mennyiért.
+- **Vásárlások:** egy purchases vagy orders tábla, ahol látszik, ki mit vásárolt. Most az egyenlegből levonható a könyv ára, de a vásárlások történetét még nem tároljuk.
 - **Jelszó oszlop** a users táblában (titkosítva).
 - **A data\_bank feltöltése,** ha tényleg szükség lesz rá.
 
